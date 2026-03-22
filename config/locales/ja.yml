@@ -1,5 +1,6 @@
 ja:
   webhook: WebHook
+  label_webhook_api_key_placeholder: "任意 — 不要な場合は空白のまま"
   notice_fail_create_webhook: Webhook の作成に失敗しました
   notice_successful_create_webhook: Webhook の作成に成功しました
   notice_fail_update_webhook: Webhook の更新に失敗しました

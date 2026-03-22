@@ -1,10 +1,10 @@
 # English strings go here for Rails i18n
 en:
   webhook: WebHook
+  label_webhook_api_key_placeholder: "Optional — leave blank if not required"
   notice_fail_create_webhook: Webhook creation failed.
   notice_successful_create_webhook: Webhook created successfully.
   notice_fail_update_webhook: Webhook update failed.
   notice_successful_update_webhook : Webhook updated successfully.
   notice_fail_delete_webhook: Webhook delete failed.
   notice_successful_delete_webhook : Webhook deleted successfully.
-  

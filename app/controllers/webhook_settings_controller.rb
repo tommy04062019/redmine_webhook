@@ -3,12 +3,13 @@ class WebhookSettingsController < ApplicationController
   accept_api_auth :index, :create, :update, :destroy
 
   def index
-    render :json => Webhook.where(:project_id => @project.id).as_json(:only => [:id, :url])
+    render :json => Webhook.where(:project_id => @project.id).as_json(:only => [:id, :url, :api_key])
   end
 
   def create
     webhook = Webhook.new(:project_id => @project.id)
     webhook.url = params[:url]
+    webhook.api_key = params[:api_key].to_s.strip
     if webhook.save
       flash[:notice] = l(:notice_successful_create_webhook)
     else
@@ -16,10 +17,12 @@ class WebhookSettingsController < ApplicationController
     end
     redirect_to settings_project_path(@project, :tab => 'webhook')
   end
+
   def update
     id = params[:webhook_id]
     webhook = Webhook.where(:project_id => @project.id).where(:id => id).first
     webhook.url = params[:url]
+    webhook.api_key = params[:api_key].to_s.strip
     if webhook.url.blank? ? webhook.destroy : webhook.save
       flash[:notice] = l(:notice_successful_update_webhook)
     else
@@ -27,6 +30,7 @@ class WebhookSettingsController < ApplicationController
     end
     redirect_to settings_project_path(@project, :tab => 'webhook')
   end
+
   def destroy
     id = params[:webhook_id]
     webhook = Webhook.where(:project_id => @project.id).where(:id => id).first

@@ -1,25 +1,36 @@
-<% if Webhook.where(:project_id => @project.id).first%>
+<% if Webhook.where(:project_id => @project.id).first %>
 <div class="box tabular">
-<% Webhook.where(:project_id => @project.id).each do |webhook|%>
-<%= form_tag(update_webhook_path(@project, webhook.id), :method => :put, :class => "tabular") do %>
-<span>
-  <span><strong>URL</strong></span>
-  <%= text_field_tag :url, webhook.url, :size => 80 %>
+<% Webhook.where(:project_id => @project.id).each do |webhook| %>
+  <%= form_tag(update_webhook_path(@project, webhook.id), :method => :put, :class => "tabular") do %>
+  <p>
+    <label><strong>URL</strong></label>
+    <%= text_field_tag :url, webhook.url, :size => 80 %>
+  </p>
+  <p>
+    <label><strong>X-API-Key</strong></label>
+    <%= text_field_tag :api_key, webhook.api_key, :size => 60, :placeholder => l(:label_webhook_api_key_placeholder) %>
+  </p>
   <%= submit_tag l(:button_update) %>
-</span>
-<% end %>
-<%= link_to l(:button_delete), delete_webhook_path(@project, webhook.id), :class => "icon icon-del", :method => :delete, :confirm => l(:text_are_you_sure) %>
-</br>
+  <% end %>
+  <%= link_to l(:button_delete), delete_webhook_path(@project, webhook.id),
+        :class => "icon icon-del",
+        :method => :delete,
+        :confirm => l(:text_are_you_sure) %>
+  </br>
 <% end %>
 </div>
 <% end %>
 
 <%= form_tag(create_webhook_path(@project), :method => :post, :class => "tabular") do %>
 <div class="box tabular">
-<span>
-  <span><strong>URL</strong></span>
-  <%= text_field_tag :url, '', :size => 80 %>
+  <p>
+    <label><strong>URL</strong></label>
+    <%= text_field_tag :url, '', :size => 80 %>
+  </p>
+  <p>
+    <label><strong>X-API-Key</strong></label>
+    <%= text_field_tag :api_key, '', :size => 60, :placeholder => l(:label_webhook_api_key_placeholder) %>
+  </p>
   <%= submit_tag l(:button_add) %>
-</span>
 </div>
 <% end %>

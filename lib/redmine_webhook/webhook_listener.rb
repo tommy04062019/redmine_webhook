@@ -81,6 +81,7 @@ module RedmineWebhook
             Faraday.post do |req|
               req.url webhook.url
               req.headers['Content-Type'] = 'application/json'
+              req.headers['X-API-Key'] = webhook.api_key if webhook.api_key.present?
               req.body = request_body
             end
           rescue => e
